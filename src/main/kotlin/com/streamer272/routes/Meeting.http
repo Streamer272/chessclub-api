@@ -1,0 +1,26 @@
+### Get all meetings
+GET localhost:8080/meeting
+Authorization: Basic {{username}} {{password}}
+
+### Get a meeting
+GET localhost:8080/meeting/0770af15-d89b-4138-88bb-07ec88a5d7bf
+Authorization: Basic {{username}} {{password}}
+
+### End a meeting
+POST localhost:8080/meeting/0770af15-d89b-4138-88bb-07ec88a5d7bf
+Authorization: Basic {{username}} {{password}}
+Content-Type: application/json
+
+{
+    "endTime": "12:00:00.000"
+}
+
+### Create a meeting
+PUT localhost:8080/meeting
+Authorization: Basic {{username}} {{password}}
+Content-Type: application/json
+
+{
+    "date": "2019-01-01",
+    "startTime": "10:00:00.000"
+}

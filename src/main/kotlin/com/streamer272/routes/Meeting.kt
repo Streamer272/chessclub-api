@@ -19,7 +19,7 @@ import java.util.*
 fun Application.configureMeetingRouting() {
     routing {
         route("/meeting") {
-            authenticate("basic") {
+            authenticate("auth") {
                 get("/") {
                     val meetings = transaction {
                         Meeting.all().map { it.toDTO() }
