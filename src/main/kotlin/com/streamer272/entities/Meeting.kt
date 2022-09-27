@@ -22,10 +22,10 @@ object MeetingTable : UUIDTable() {
 class Meeting(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<Meeting>(MeetingTable)
 
-    val date by MeetingTable.date
-    val startTime by MeetingTable.startTime
-    val endTime by MeetingTable.endTime
-    val attendance by MeetingTable.attendance
+    var date by MeetingTable.date
+    var startTime by MeetingTable.startTime
+    var endTime by MeetingTable.endTime
+    var attendance by MeetingTable.attendance
 
     fun toDTO() = MeetingDTO(
         id.value.toString(),

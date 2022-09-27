@@ -8,20 +8,28 @@ import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.Column
 import java.util.*
 
+enum class MemberRole {
+    PRESIDENT,
+    VICE_PRESIDENT,
+    SECRETARY,
+    TREASURER,
+    MEMBER
+}
+
 object MemberTable : UUIDTable() {
     val name: Column<String> = varchar("name", 64)
     val email: Column<String> = varchar("email", 64)
     val grade: Column<Int> = integer("grade")
-    val admin: Column<Boolean> = bool("admin")
+    val role: Column<MemberRole> = enumeration("role", MemberRole::class)
 }
 
 class Member(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<Member>(MemberTable)
 
-    val name by MemberTable.name
-    val email by MemberTable.email
-    val grade by MemberTable.grade
-    val admin by MemberTable.admin
+    var name by MemberTable.name
+    var email by MemberTable.email
+    var grade by MemberTable.grade
+    var role by MemberTable.role
 
     fun toDTO() = MemberDTO(
         id.value.toString(),
