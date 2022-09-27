@@ -6,8 +6,8 @@ services:
     restart: on-failure
 
     environment:
-      POSTGRES_USER: "user"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: "api"
+      POSTGRES_PASSWORD: "9SMJRyF4TyTF39jttrFzSRtc9egLcaaEeyyKm8Qe"
       POSTGRES_DB: "chessclub"
 
     ports:

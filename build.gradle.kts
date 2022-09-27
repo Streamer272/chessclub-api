@@ -38,6 +38,7 @@ dependencies {
     implementation("org.postgresql:postgresql:42.5.0")
     implementation("io.ktor:ktor-server-host-common-jvm:2.1.1")
     implementation("io.ktor:ktor-server-status-pages-jvm:2.1.1")
+    implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

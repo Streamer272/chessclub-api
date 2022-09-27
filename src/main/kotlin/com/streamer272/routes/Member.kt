@@ -42,14 +42,14 @@ fun Application.configureMemberRouting() {
                 }
 
                 post("/{memberId}") {
-                    val updateDTO = call.receive<UpdateMemberRoleDTO>()
+                    val data = call.receive<UpdateMemberRoleDTO>()
                     val memberId = try {
                         UUID.fromString(call.parameters["memberId"] ?: "")
                     } catch (e: Exception) {
                         throw APIBadRequestException("Invalid memberId")
                     }
                     val memberRole = try {
-                        MemberRole.valueOf(updateDTO.role.uppercase())
+                        MemberRole.valueOf(data.role.uppercase())
                     } catch (e: Exception) {
                         throw APIBadRequestException("Invalid role")
                     }
@@ -65,12 +65,12 @@ fun Application.configureMemberRouting() {
                 }
 
                 put("/") {
-                    val createMemberDTO = call.receive<CreateMemberDTO>()
+                    val data = call.receive<CreateMemberDTO>()
                     val newMember = transaction {
                         Member.new {
-                            name = createMemberDTO.name
-                            email = createMemberDTO.email
-                            grade = createMemberDTO.grade
+                            name = data.name
+                            email = data.email
+                            grade = data.grade
                             role = MemberRole.MEMBER
                         }
                     }

@@ -15,7 +15,7 @@ import java.util.*
 object MeetingTable : UUIDTable() {
     val date: Column<LocalDate> = date("date")
     val startTime: Column<LocalTime> = time("start_time")
-    val endTime: Column<LocalTime> = time("end_time")
+    val endTime: Column<LocalTime?> = time("end_time").nullable()
     val attendance: Column<String> = text("attendance")
 }
 

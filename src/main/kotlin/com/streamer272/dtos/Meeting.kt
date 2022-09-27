@@ -10,3 +10,14 @@ data class MeetingDTO(
     val endTime: String,
     val attendance: String
 )
+
+@Serializable
+data class StartMeetingDTO(
+    val date: String,
+    val startTime: String
+)
+
+@Serializable
+data class EndMeetingDTO(
+    val endTime: String
+)
