@@ -1,6 +1,7 @@
 package com.streamer272.plugins
 
 import com.streamer272.entities.MeetingTable
+import com.streamer272.entities.MemberTable
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -16,5 +17,6 @@ fun Application.configureDatabase() {
 
     transaction {
         SchemaUtils.create(MeetingTable)
+        SchemaUtils.create(MemberTable)
     }
 }

@@ -16,6 +16,7 @@ object MeetingTable : UUIDTable() {
     val date: Column<LocalDate> = date("date")
     val startTime: Column<LocalTime> = time("start_time")
     val endTime: Column<LocalTime> = time("end_time")
+    val attendance: Column<String> = text("attendance")
 }
 
 class Meeting(id: EntityID<UUID>) : UUIDEntity(id) {
@@ -24,11 +25,13 @@ class Meeting(id: EntityID<UUID>) : UUIDEntity(id) {
     val date by MeetingTable.date
     val startTime by MeetingTable.startTime
     val endTime by MeetingTable.endTime
+    val attendance by MeetingTable.attendance
 
     fun toDTO() = MeetingDTO(
         id.value.toString(),
         date.toString(),
         startTime.toString(),
-        endTime.toString()
+        endTime.toString(),
+        attendance
     )
 }
