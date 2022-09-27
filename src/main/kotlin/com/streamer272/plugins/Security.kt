@@ -5,7 +5,7 @@ import io.ktor.server.auth.*
 
 fun Application.configureSecurity() {
     authentication {
-        basic(name = "auth") {
+        basic("auth") {
             realm = "Admin"
             validate { credentials ->
                 if (credentials.name == "administrator" && credentials.password == "k6YBM8Wv") {

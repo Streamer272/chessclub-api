@@ -1,13 +1,8 @@
 package com.streamer272.plugins
 
+import com.streamer272.routes.configureMemberRouting
 import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
-    routing {
-        get("/") {
-            call.respondText("Hello World!")
-        }
-    }
+    configureMemberRouting()
 }
