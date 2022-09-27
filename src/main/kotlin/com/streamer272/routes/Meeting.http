@@ -3,11 +3,21 @@ GET localhost:8080/meeting
 Authorization: Basic {{username}} {{password}}
 
 ### Get a meeting
-GET localhost:8080/meeting/0770af15-d89b-4138-88bb-07ec88a5d7bf
+GET localhost:8080/meeting/d8f48709-27af-4672-a426-5779a69c6fcb
 Authorization: Basic {{username}} {{password}}
 
+### Change attendance
+POST localhost:8080/meeting/d8f48709-27af-4672-a426-5779a69c6fcb/attendance
+Authorization: Basic {{username}} {{password}}
+Content-Type: application/json
+
+{
+    "member": "eea88c0b-28bd-4db7-8c36-aed90ec53ac8",
+    "present": true
+}
+
 ### End a meeting
-POST localhost:8080/meeting/0770af15-d89b-4138-88bb-07ec88a5d7bf
+POST localhost:8080/meeting/d8f48709-27af-4672-a426-5779a69c6fcb/end
 Authorization: Basic {{username}} {{password}}
 Content-Type: application/json
 
@@ -23,6 +33,6 @@ Content-Type: application/json
 {
     "date": "2019-01-01",
     "location": "Room 1",
-    "orderedBy": {{$uuid}},
+    "orderedBy": "eea88c0b-28bd-4db7-8c36-aed90ec53ac8",
     "startTime": "10:00:00.000"
 }

@@ -15,7 +15,7 @@ import java.util.*
 object MeetingTable : UUIDTable() {
     val date: Column<LocalDate> = date("date")
     val location: Column<String> = varchar("location", 128)
-    val orderedBy: Column<EntityID<UUID>> = reference("ordered_by", MemberTable)
+    val orderedBy: Column<String?> = varchar("ordered_by", 36).nullable()
     val startTime: Column<LocalTime> = time("start_time")
     val endTime: Column<LocalTime?> = time("end_time").nullable()
     val attendance: Column<String> = text("attendance")
@@ -26,7 +26,7 @@ class Meeting(id: EntityID<UUID>) : UUIDEntity(id) {
 
     var date by MeetingTable.date
     var location by MeetingTable.location
-    var orderedBy by Member referencedOn MeetingTable.orderedBy
+    var orderedBy by MeetingTable.orderedBy
     var startTime by MeetingTable.startTime
     var endTime by MeetingTable.endTime
     var attendance by MeetingTable.attendance
@@ -35,7 +35,7 @@ class Meeting(id: EntityID<UUID>) : UUIDEntity(id) {
         id.value.toString(),
         date.toString(),
         location,
-        orderedBy.id.value.toString(),
+        orderedBy,
         startTime.toString(),
         endTime.toString(),
         attendance

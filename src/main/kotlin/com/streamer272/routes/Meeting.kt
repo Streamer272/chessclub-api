@@ -90,7 +90,7 @@ fun Application.configureMeetingRouting() {
                         } catch (e: Exception) {
                             null
                         }
-                    } ?: throw APIBadRequestException("Invalid orderedBy")
+                    }
 
                     val meeting = transaction {
                         Member.all().forEach { member -> emptyAttendance[member.id.value.toString()] = false }
@@ -98,7 +98,10 @@ fun Application.configureMeetingRouting() {
                         Meeting.new {
                             date = LocalDate.parse(data.date)
                             location = data.location
-                            orderedBy = Member.findById(orderedById) ?: throw APINotFoundException("Member not found")
+                            orderedBy = orderedById?.let {
+                                Member.findById(it)?.id?.value?.toString()
+                                    ?: throw APINotFoundException("Member not found")
+                            }
                             startTime = LocalTime.parse(data.startTime)
                             endTime = null
                             attendance = Json.encodeToString(emptyAttendance)
