@@ -22,5 +22,7 @@ Content-Type: application/json
 
 {
     "date": "2019-01-01",
+    "location": "Room 1",
+    "orderedBy": {{$uuid}},
     "startTime": "10:00:00.000"
 }
