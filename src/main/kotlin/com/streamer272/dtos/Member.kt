@@ -7,7 +7,8 @@ data class MemberDTO(
     val id: String,
     val name: String,
     val email: String,
-    val grade: Int
+    val grade: Int,
+    val role: String
 )
 
 @Serializable
@@ -19,6 +20,5 @@ data class CreateMemberDTO(
 
 @Serializable
 data class UpdateMemberRoleDTO(
-    val memberId: String,
     val role: String
 )

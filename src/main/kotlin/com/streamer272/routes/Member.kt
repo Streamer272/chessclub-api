@@ -41,18 +41,19 @@ fun Application.configureMemberRouting() {
                     call.respond(member)
                 }
 
-                post("/role") {
+                post("/{memberId}") {
                     val updateDTO = call.receive<UpdateMemberRoleDTO>()
                     val memberId = try {
-                        UUID.fromString(updateDTO.memberId)
+                        UUID.fromString(call.parameters["memberId"] ?: "")
                     } catch (e: Exception) {
                         throw APIBadRequestException("Invalid memberId")
                     }
                     val memberRole = try {
-                        MemberRole.valueOf(updateDTO.role)
+                        MemberRole.valueOf(updateDTO.role.uppercase())
                     } catch (e: Exception) {
                         throw APIBadRequestException("Invalid role")
                     }
+                    println("Updating role for $memberId to $memberRole")
 
                     val member = transaction {
                         val member = Member.findById(memberId) ?: throw APINotFoundException("Member not found")
@@ -73,7 +74,7 @@ fun Application.configureMemberRouting() {
                             role = MemberRole.MEMBER
                         }
                     }
-                    call.respond(newMember)
+                    call.respond(newMember.toDTO())
                 }
 
                 delete("/{memberId}") {
@@ -86,7 +87,8 @@ fun Application.configureMemberRouting() {
                     } ?: throw APIBadRequestException("Invalid memberId")
 
                     transaction {
-                        Member.findById(memberId)?.delete()
+                        val member = Member.findById(memberId) ?: throw APINotFoundException("Member not found")
+                        member.delete()
                     }
                     call.respond(GenericResponseDTO("Member deleted"))
                 }

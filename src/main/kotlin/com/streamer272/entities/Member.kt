@@ -35,6 +35,7 @@ class Member(id: EntityID<UUID>) : UUIDEntity(id) {
         id.value.toString(),
         name,
         email,
-        grade
+        grade,
+        role.name
     )
 }

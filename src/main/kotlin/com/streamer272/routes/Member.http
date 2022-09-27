@@ -1,0 +1,35 @@
+### Get all members
+GET localhost:8080/member
+Authorization: Basic {{username}} {{password}}
+
+### Get a member
+GET localhost:8080/member/01a25981-e772-439a-882c-8bd1568070a7
+Authorization: Basic {{username}} {{password}}
+
+### Get all roles
+GET localhost:8080/member/roles
+Authorization: Basic {{username}} {{password}}
+
+### Change member's role
+POST localhost:8080/member/01a25981-e772-439a-882c-8bd1568070a7
+Authorization: Basic {{username}} {{password}}
+Content-Type: application/json
+
+{
+    "role": "SECRETARY"
+}
+
+### Create a member
+PUT localhost:8080/member/
+Authorization: Basic {{username}} {{password}}
+Content-Type: application/json
+
+{
+    "name": "Daniel Svitan",
+    "email": "560242@my.cuhsd.org",
+    "grade": 12
+}
+
+### Delete a member
+DELETE localhost:8080/member/01a25981-e772-439a-882c-8bd1568070a7
+Authorization: Basic {{username}} {{password}}
