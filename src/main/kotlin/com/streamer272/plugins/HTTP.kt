@@ -22,6 +22,7 @@ fun Application.configureHTTP() {
         allowMethod(HttpMethod.Delete)
         allowMethod(HttpMethod.Patch)
         allowHeader(HttpHeaders.Authorization)
+        allowCredentials = true
         anyHost() // TODO: change in production
     }
     install(IgnoreTrailingSlash)
