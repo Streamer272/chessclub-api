@@ -21,6 +21,11 @@ fun Application.configureMeetingRouting() {
     routing {
         route("/meeting") {
             authenticate("auth") {
+                /**
+                 * Get all meetings
+                 *
+                 * @return List<MeetingDTO>
+                 */
                 get("/") {
                     val meetings = transaction {
                         Meeting.all().map { it.toDTO() }
@@ -28,6 +33,14 @@ fun Application.configureMeetingRouting() {
                     call.respond(meetings)
                 }
 
+                /**
+                 * Get a meeting by id
+                 *
+                 * @property meetingId The id of the meeting to get
+                 * @throws APIBadRequestException If the meeting id is not a valid UUID
+                 * @throws APINotFoundException If the meeting does not exist
+                 * @return MeetingDTO
+                 */
                 get("/{meetingId}") {
                     val meetingId = call.parameters["meetingId"]?.let {
                         try {
@@ -43,6 +56,16 @@ fun Application.configureMeetingRouting() {
                     call.respond(meeting)
                 }
 
+                /**
+                 * Edit meeting attendance
+                 *
+                 * @property meetingId The id of the meeting to edit
+                 * @property member The member whose attendance is being edited
+                 * @property present The new attendance status
+                 * @throws APIBadRequestException if the meetingId is invalid
+                 * @throws APINotFoundException if the meeting is not found
+                 * @return The new attendance
+                 */
                 post("/{meetingId}/attendance") {
                     val data = call.receive<EditAttendanceDTO>()
                     val meetingId = call.parameters["meetingId"]?.let {
@@ -64,6 +87,15 @@ fun Application.configureMeetingRouting() {
                     call.respond(attendance)
                 }
 
+                /**
+                 * End a meeting, saving its endTime
+                 *
+                 * @property meetingId The id of the meeting
+                 * @property endTime The time the meeting ended
+                 * @throws APINotFoundException If the meeting is not found
+                 * @throws APIBadRequestException If the meeting has already ended
+                 * @return Text saying the meeting was ended
+                 */
                 post("/{meetingId}/end") {
                     val data = call.receive<EndMeetingDTO>()
                     val meetingId = call.parameters["meetingId"]?.let {
@@ -81,6 +113,16 @@ fun Application.configureMeetingRouting() {
                     call.respond(GenericResponseDTO("Meeting ended"))
                 }
 
+                /**
+                 * Create a new meeting, saving its date and startTime
+                 *
+                 * @property date The date of the meeting
+                 * @property location The location of the meeting
+                 * @property orderedBy The member who ordered the meeting
+                 * @property startTime The time the meeting started
+                 * @throws APINotFoundException If the member who ordered the meeting is not found
+                 * @return The new meeting
+                 */
                 put("/") {
                     val data = call.receive<StartMeetingDTO>()
                     val emptyAttendance = mutableMapOf<String, Boolean>()

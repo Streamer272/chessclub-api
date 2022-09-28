@@ -15,6 +15,11 @@ fun Application.configureMemberRouting() {
     routing {
         route("/member") {
             authenticate("auth") {
+                /**
+                 * Get all members
+                 *
+                 * @return List<MemberDTO>
+                 */
                 get("/") {
                     val members = transaction {
                         Member.all().toList().map { it.toDTO() }
@@ -22,10 +27,23 @@ fun Application.configureMemberRouting() {
                     call.respond(members)
                 }
 
+                /**
+                 * Get all roles
+                 *
+                 * @return List<String>
+                 */
                 get("/roles") {
                     call.respond(MemberRole.values().toList())
                 }
 
+                /**
+                 * Get a member by id
+                 *
+                 * @property memberId The id of the member to get
+                 * @throws APIBadRequestException If the member id is not a valid UUID
+                 * @throws APINotFoundException If the member does not exist
+                 * @return MemberDTO
+                 */
                 get("/{memberId}") {
                     val memberId = call.parameters["memberId"]?.let {
                         try {
@@ -41,6 +59,15 @@ fun Application.configureMemberRouting() {
                     call.respond(member)
                 }
 
+                /**
+                 * Edit member role
+                 *
+                 * @property memberId The id of the member to edit
+                 * @property role The new role of the member
+                 * @throws APIBadRequestException If the member id is not a valid UUID
+                 * @throws APINotFoundException If the member does not exist
+                 * @return MemberDTO
+                 */
                 post("/{memberId}") {
                     val data = call.receive<UpdateMemberRoleDTO>()
                     val memberId = try {
@@ -64,6 +91,16 @@ fun Application.configureMemberRouting() {
                     call.respond(member.toDTO())
                 }
 
+                /**
+                 * Create a new member
+                 *
+                 * @property name The name of the new member
+                 * @property email The email of the new member
+                 * @property grade The grade of the new member
+                 * @throws APIBadRequestException If the member id is not a valid UUID
+                 * @throws APINotFoundException If the member does not exist
+                 * @return MemberDTO
+                 */
                 put("/") {
                     val data = call.receive<CreateMemberDTO>()
                     val newMember = transaction {
@@ -77,6 +114,14 @@ fun Application.configureMemberRouting() {
                     call.respond(newMember.toDTO())
                 }
 
+                /**
+                 * Delete a member
+                 *
+                 * @property memberId The id of the member to delete
+                 * @throws APIBadRequestException If the member id is not a valid UUID
+                 * @throws APINotFoundException If the member does not exist
+                 * @return MemberDTO
+                 */
                 delete("/{memberId}") {
                     val memberId = call.parameters["memberId"]?.let {
                         try {

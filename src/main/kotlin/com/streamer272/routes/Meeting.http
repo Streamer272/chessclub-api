@@ -3,11 +3,11 @@ GET localhost:8080/meeting
 Authorization: Basic {{username}} {{password}}
 
 ### Get a meeting
-GET localhost:8080/meeting/d8f48709-27af-4672-a426-5779a69c6fcb
+GET localhost:8080/meeting/b4f44612-ceb6-4ced-927e-b7e92de10a74
 Authorization: Basic {{username}} {{password}}
 
 ### Change attendance
-POST localhost:8080/meeting/d8f48709-27af-4672-a426-5779a69c6fcb/attendance
+POST localhost:8080/meeting/b4f44612-ceb6-4ced-927e-b7e92de10a74/attendance
 Authorization: Basic {{username}} {{password}}
 Content-Type: application/json
 
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### End a meeting
-POST localhost:8080/meeting/d8f48709-27af-4672-a426-5779a69c6fcb/end
+POST localhost:8080/meeting/b4f44612-ceb6-4ced-927e-b7e92de10a74/end
 Authorization: Basic {{username}} {{password}}
 Content-Type: application/json
 
