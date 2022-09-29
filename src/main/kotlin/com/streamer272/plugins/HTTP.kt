@@ -17,11 +17,14 @@ fun Application.configureHTTP() {
         }
     }
     install(CORS) {
-        allowMethod(HttpMethod.Options)
+        allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Put)
-        allowMethod(HttpMethod.Delete)
         allowMethod(HttpMethod.Patch)
+        allowMethod(HttpMethod.Delete)
+        allowMethod(HttpMethod.Options)
         allowHeader(HttpHeaders.Authorization)
+        allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.Accept)
         allowCredentials = true
         anyHost() // TODO: change in production
     }
