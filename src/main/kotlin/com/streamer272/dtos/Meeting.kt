@@ -17,7 +17,7 @@ data class MeetingDTO(
 data class StartMeetingDTO(
     val date: String,
     val location: String,
-    val orderedBy: String,
+    val orderedBy: String?,
     val startTime: String
 )
 

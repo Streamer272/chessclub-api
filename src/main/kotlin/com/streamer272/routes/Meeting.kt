@@ -126,7 +126,7 @@ fun Application.configureMeetingRouting() {
                 put("/") {
                     val data = call.receive<StartMeetingDTO>()
                     val emptyAttendance = mutableMapOf<String, Boolean>()
-                    val orderedById = data.orderedBy.let {
+                    val orderedById = data.orderedBy?.let {
                         try {
                             UUID.fromString(it)
                         } catch (e: Exception) {
