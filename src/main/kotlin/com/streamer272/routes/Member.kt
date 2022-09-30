@@ -3,6 +3,7 @@ package com.streamer272.routes
 import com.streamer272.dtos.*
 import com.streamer272.entities.Member
 import com.streamer272.entities.MemberRole
+import com.streamer272.entities.MemberTable
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
@@ -23,6 +24,13 @@ fun Application.configureMemberRouting() {
                 get("/") {
                     val members = transaction {
                         Member.all().toList().map { it.toDTO() }
+                    }
+                    call.respond(members)
+                }
+
+                get("/admins") {
+                    val members = transaction {
+                        Member.find { MemberTable.role neq MemberRole.MEMBER }.toList().map { it.toDTO() }
                     }
                     call.respond(members)
                 }
