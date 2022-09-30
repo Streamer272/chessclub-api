@@ -67,7 +67,7 @@ fun Application.configureMeetingRouting() {
                  * @return The new attendance
                  */
                 post("/{meetingId}/attendance") {
-                    val data = call.receive<EditAttendanceDTO>()
+                    val data = call.receive<EditMeetingAttendanceDTO>()
                     val meetingId = call.parameters["meetingId"]?.let {
                         try {
                             UUID.fromString(it)

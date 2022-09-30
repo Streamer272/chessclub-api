@@ -27,7 +27,7 @@ data class EndMeetingDTO(
 )
 
 @Serializable
-data class EditAttendanceDTO(
+data class EditMeetingAttendanceDTO(
     val member: String,
     val present: Boolean
 )
