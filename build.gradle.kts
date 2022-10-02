@@ -21,6 +21,24 @@ repositories {
     mavenCentral()
 }
 
+ktor {
+    docker {
+        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_17)
+        localImageName.set("streamer272/chessclub-api")
+        imageTag.set("latest")
+        portMappings.set(
+            listOf(
+                io.ktor.plugin.features.DockerPortMapping(
+                    5001,
+                    8080,
+                    io.ktor.plugin.features.DockerPortMappingProtocol.TCP
+                )
+            )
+        )
+
+    }
+}
+
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-auth-jvm:$ktor_version")
